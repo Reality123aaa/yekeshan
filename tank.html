@@ -5,7 +5,7 @@
 		<title>让坦克开起来</title>
 		<style type="text/css">
 			input{font-size:26px;margin-top: 20px;}
-			body{background-image: url(img/grassland.png);}
+			body{background-image: url(img/test3/grassland.png);}
 			#mytank{position: absolute;left:10px;top:100px}
 		</style>
 	</head>
@@ -28,7 +28,7 @@
                     // 按下上方向键
                     case 'ArrowUp':
                         // 改变图片的src地址，控制转向
-                        Oimg.src = 'img/up.png'
+                        Oimg.src = 'img/test3/up.png'
                         // 目标位置 = 初始位置 - 每次移动距离（这里设为10px）
                         T = T - 10
                         // 判断是否超出屏幕边界
@@ -38,7 +38,7 @@
                         }
                         break;
                     case 'ArrowDown':
-                        Oimg.src = 'img/down.png'
+                        Oimg.src = 'img/test3/down.png'
                         T = T + 10
                         // 判断是否超出屏幕边界
                         if (T <= window.innerHeight - Oimg.height) {
@@ -46,7 +46,7 @@
                         }
                         break;
                     case 'ArrowLeft':
-                        Oimg.src = 'img/left.png'
+                        Oimg.src = 'img/test3/left.png'
                         L = L - 10
                         // 判断是否超出屏幕边界
                         if (L >= 0) {
@@ -54,7 +54,7 @@
                         }
                         break;
                     case 'ArrowRight':
-                        Oimg.src = 'img/right.png'
+                        Oimg.src = 'img/test3/right.png'
                         L = L + 10
                         // 判断是否超出屏幕边界
                         if (L <= window.innerWidth - Oimg.width) {
