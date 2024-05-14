@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+<style>
+    div{
+      height:50px;
+      line-height:50px;
+      text-align:center;
+      border:double #ccc;
+      width:100px;
+    }
+   </style>
+   <div id="clock" ></div>
+   <script>
+       window.onload = startTime;
+       var timer = null;
+       function startTime()
+       {
+           var now = new Date();		// 获取当前的时间的毫秒数
+           var h = now.getHours();		// 获取now的小时 (0 ~ 23)
+           var m = now.getMinutes();	// 获取now的分钟 (0 ~ 59)
+           var s = now.getSeconds();	// 获取now的秒数 (0 ~ 59)
+           // 利用两位数字表示 分钟 和 秒数
+           m = m < 10 ? '0'+ m : m;
+           s = s < 10 ? '0'+ s : s;
+           document.getElementById('clock').innerHTML = h + ":" + m + ":" + s
+           timer = setTimeout('startTime()', 1000);
+       }
+
+   </script>
+   
+</body>
+</html>
