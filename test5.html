@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f2f2f2;
+    }
+
+
+
+    .registration-form {
+      display: flex;
+      align-items: center;
+      
+      border-radius: 5px;
+      
+      padding: 20px;
+    }
+
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 450px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    form div {
+      margin-bottom: 10px;
+    }
+
+    form label {
+      display: inline-block;
+      width: 120px;
+      font-weight: bold;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"] {
+      width: 200px;
+      padding: 5px;
+    }
+
+    form button[type="submit"] {
+         
+        display: block;
+      margin: 0 auto; /* 设置左右外边距为auto以实现居中对齐 */
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+    <div class="registration-form">
+    <div id="jd-logo">
+        <img src="img/test511/jd.png" alt="" style="width: 150px;height: 150px">
+    </div>
+  <form id="registration-form">
+    <div>
+      <label for="username">用户名:</label>
+      <input type="text" id="username" name="username" required>
+      <span id="username-error" class="error-message"></span>
+    </div>
+    <div>
+      <label for="email">邮箱:</label>
+      <input type="email" id="email" name="email" required>
+      <span id="email-error" class="error-message"></span>
+    </div>
+    <div>
+      <label for="password">密码:</label>
+      <input type="password" id="password" name="password" required>
+      <span id="password-error" class="error-message"></span>
+    </div>
+    <div>
+      <label for="confirm-password">确认密码:</label>
+      <input type="password" id="confirm-password" name="confirm-password" required>
+      <span id="confirm-password-error" class="error-message"></span>
+    </div>
+    <button type="submit">注册</button>
+  </form>
+</div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+   $(document).ready(function() {
+  $("#registration-form").submit(function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Clear previous error messages
+    $(".error-message").text("");
+
+    // Get form data
+    var username = $("#username").val();
+    var email = $("#email").val();
+    var password = $("#password").val();
+    var confirmPassword = $("#confirm-password").val();
+
+    // Validate username
+    if (username.length > 6) {
+      $("#username-error").text("用户名不能长于6位");
+    }
+
+    // Validate email
+    if (!isValidEmail(email)) {
+      $("#email-error").text("请输入一个有效的邮箱地址.");
+    }
+
+    // Validate password
+    if (password.length < 8) {
+      $("#password-error").text("密码长度必须小于8位.");
+    }
+
+    // Validate confirm password
+    if (password !== confirmPassword) {
+      $("#confirm-password-error").text("密码不一致.");
+    }
+
+    // If there are no errors, submit the form
+    if ($(".error-message").text() === "") {
+      // Perform form submission or other actions
+      // e.g., make an AJAX request to register the user
+      console.log("Form submitted successfully!");
+    }
+  });
+
+  // Confirm password validation on keyup
+  $("#confirm-password").keyup(function() {
+    var password = $("#password").val();
+    var confirmPassword = $(this).val();
+
+    if (password !== confirmPassword) {
+      $("#confirm-password-error").text(" 密码不一致.");
+    } else {
+      $("#confirm-password-error").text("");
+    }
+  });
+});
+document.addEventListener('DOMContentLoaded', function() {
+      var form = document.getElementById('registration-form');
+
+      form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Simulate registration success
+        var registrationSuccess = true;
+
+        if (registrationSuccess) {
+          // Display success message
+          alert('注册成功!');
+
+          // Redirect to JD homepage after the alert is closed
+          window.location.href = 'https://www.jd.com';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
