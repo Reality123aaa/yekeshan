@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>请登录</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<style>
+   body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f2f2f2;
+    }
+
+
+
+    .registration-form {
+      display: flex;
+      align-items: center;
+      
+      border-radius: 5px;
+      
+      padding: 20px;
+    }
+
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 450px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    form div {
+      margin-bottom: 10px;
+    }
+
+    form label {
+      display: inline-block;
+      width: 120px;
+      font-weight: bold;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"] {
+      width: 200px;
+      padding: 5px;
+    }
+
+    form button[type="submit"] {
+         
+        display: block;
+      margin: 0 auto; /* 设置左右外边距为auto以实现居中对齐 */
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+</style>
+<body>
+  
+    <h1>注册用户</h1>
+    <form id="registration-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <button type="button" id="checkBtn">Check</button>
+        <span id="result"></span>
+       
+          <label for="password">密码:</label>
+          <input type="password" id="password" name="password" required>
+          <span id="password-error" class="error-message"></span>
+        
+        
+          <label for="confirm-password">确认密码:</label>
+          <input type="password" id="confirm-password" name="confirm-password" required>
+          <span id="confirm-password-error" class="error-message"></span>
+        
+    </form>
+    <script>
+      $(document).ready(function() {
+    $('#checkBtn').click(function() {
+        var username = $('#username').val();
+        console.log(username);
+
+        $.ajax({
+            url: 'http://127.0.0.1:4523/m1/4538631-4186428-default/check_username', // 后端处理用户名检查的路由
+            type: 'POST',
+            data: { "username": username },
+            success: function(response) {
+              console.log(response);
+              console.log(typeof(response));
+              if(typeof(response)=="string"){
+                var result = jQuery.parseJSON(response);
+                console.log(result);
+              }else{
+                result=response
+              }
+            //  
+              console.log(result.code);
+                if ( result.code== "1") {
+                    $('#result').text('用户名存在');
+                } else {
+                    $('#result').text('用户名可用');
+                }
+            },
+            error: function() {
+                $('#result').text('Error occurred while checking username.');
+            }
+        });
+    });
+});
+    </script>
+</body>
+</html>

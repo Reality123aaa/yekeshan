@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //定义一个Promise函数
+        function Promise(executor) {
+            this.state = 'pending';
+            this.value = undefined;
+            this.reason = undefined;
+            this.onResolvedCallbacks = [];
+            this.onRejectedCallbacks = [];
+
+            const resolve = (value) => {
+                if (this.state === 'pending') {
+                    this.state = 'resolved';
+                    this.value = value;
+                    this.onResolvedCallbacks.forEach(fn => fn());
+                }
+            };
+
+            const reject = (reason) => {
+                if (this.state === 'pending') {
+                    this.state = 'rejected';
+                    this.reason = reason;
+                    this.onRejectedCallbacks.forEach(fn => fn());
+                }
+            };
+
+            try {
+                executor(resolve, reject);
+            } catch (err) {
+                reject(err);
+            }
+        }
+        //实现then
+        //then方法接收两个参数，onFulfilled和onRejected，它们都是可选的
+        Promise.prototype.then = function(onFulfilled, onRejected) {
+            if (this.state === 'resolved') {
+                onFulfilled(this.value);
+            }
+
+            if (this.state === 'rejected') {
+                onRejected(this.reason);
+            }
+
+            if (this.state === 'pending') {
+                this.onResolvedCallbacks.push(() => {
+                    onFulfilled(this.value);
+                });
+
+                this.onRejectedCallbacks.push(() => {
+                    onRejected(this.reason);
+                });
+            }
+        };
+        //结果测试
+        const myPromise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('成功');
+                // reject('失败');
+                console.log(11);
+            }, 1000);
+        });
+
+        myPromise.then(
+            (value) => {
+                console.log('Resolved with value:', value);
+            },
+            (reason) => {
+                console.log('Rejected with reason:', reason);
+            }
+        );
+    </script>
+  
+</body>
+</html>

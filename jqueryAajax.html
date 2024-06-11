@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAx应用2</title>
+    <script src="https://cdn.staticfile.net/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<body>
+    <script>
+        $(document).ready(function() {
+                // $("button").click(function() {
+                $.ajax({
+                    url: "https://www.mxnzp.com/api/jokes/list/random",
+                    type: "get",
+                    data: {
+                        app_id: "tiefyzlllogcfueq",
+                        app_secret: "W9qqfxJyFzOZ7Z23O3k1jf92pJAYtAik"
+                    },
+
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                    }
+                })
+            })
+            // })
+    </script>
+</body>
+
+</html>

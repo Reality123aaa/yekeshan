@@ -80,6 +80,7 @@
       <input type="text" id="username" name="username" required>
       <span id="username-error" class="error-message"></span>
     </div>
+    <button type="button" id="checkBtn">Check</button>
     <div>
       <label for="email">邮箱:</label>
       <input type="email" id="email" name="email" required>
@@ -152,6 +153,7 @@
       $("#confirm-password-error").text("");
     }
   });
+
 });
 document.addEventListener('DOMContentLoaded', function() {
       var form = document.getElementById('registration-form');
@@ -171,6 +173,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     });
+
+    $(document).ready(function() {
+    $('#checkBtn').click(function() {
+        var username = $('#username').val();
+        console.log(username);
+
+        $.ajax({
+            url: 'http://127.0.0.1:4523/m1/4538631-4186428-default/check_username', // 后端处理用户名检查的路由
+            type: 'POST',
+            data: { "username": username },
+            success: function(response) {
+              console.log(response);
+              console.log(typeof(response));
+              if(typeof(response)=="string"){
+                var result = jQuery.parseJSON(response);
+                console.log(result);
+              }else{
+                result=response
+              }
+            //  
+              console.log(result.code);
+                if ( result.code== "1") {
+                    $('#result').text('用户名存在');
+                } else {
+                    $('#result').text('用户名可用');
+                }
+            },
+            error: function() {
+                $('#result').text('Error occurred while checking username.');
+            }
+        });
+    });
+});
   </script>
 </body>
 </html>
